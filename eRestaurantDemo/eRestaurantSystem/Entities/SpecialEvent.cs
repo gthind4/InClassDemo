@@ -19,7 +19,7 @@ namespace eRestaurantSystem.Entities
         public string EventCode { get; set; }
         [Required(ErrorMessage="A Description is required (5-30 characters)")]
         [StringLength(30,MinimumLength=5,ErrorMessage="Description must be 5-30 characters in length")]
-        public string description { get; set; }
+        public string Description { get; set; }
         public bool Active { get; set; }
 
         //Navigation virtual property(s)
