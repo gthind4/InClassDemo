@@ -30,6 +30,7 @@ namespace eRestaurantSystem.Entities
         // handle via navigation mapping
         //Therefore we will place a ICollection properties in this entity refering to the Tables table.
         public virtual ICollection<Reservation> Reservations { get; set; }
+        public virtual ICollection<Bill> Bills { get; set; }
 
         public Table()
         {

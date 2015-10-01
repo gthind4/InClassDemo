@@ -32,6 +32,7 @@ namespace eRestaurantSystem.Entities
         public int MenuCategoryID { get; set; }
 
         public virtual MenuCategory Category { get; set; }
+        
 
         public Item()
         {
