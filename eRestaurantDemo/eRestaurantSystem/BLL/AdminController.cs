@@ -88,5 +88,33 @@ namespace eRestaurantSystem.BLL
             }
 
         }
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<CategoryMenuItems> GetCategoryMenuItems_List()
+        {
+            using (var context = new eRestaurantContext())
+            {
+                //remember LINQ does not like using DateTime casting
+               
+
+                //Query syntax
+                var results = from category in context.MenuCategories
+                              orderby category.Description
+                              select new CategoryMenuItems() //DTO
+                              {
+                                  Description = category.Description,
+                                  MenuItems = from row in category.MenuItems 
+                                                 
+                                                 select new MenuItem()
+                                                 {
+                                                     Description = row. Description,
+                                                      Price = row.CurrentPrice,
+                                                      Calories = row.Calories,
+                                                      Comment = row.Comment
+                                                 }
+                              };
+                return results.ToList();
+            }
+
+        }
     }
 }
