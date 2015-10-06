@@ -6,6 +6,7 @@
         <asp:Repeater ID="MenuCategories" runat="server" DataSourceID="ODSMenuItems">
             <ItemTemplate>
                 <h3>
+                    <image src='<%# "../Images/"+ Eval("Description")+"-1.png" %>' width="80" height="80">
                     <%# Eval("Description") %>
 
                 </h3>
