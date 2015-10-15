@@ -18,22 +18,6 @@ public partial class CommandPages_WaiterAdmin : System.Web.UI.Page
         DateHired.Text = DateTime.Today.ToShortDateString();
     }
 
-    protected void FetchWaiter_Click(object sender, EventArgs e)
-    {
-        if (WaiterList.SelectedIndex == 0)
-        {
-            MessageUserControl1.ShowInfo("Please select a waiter before clicking fetch Waiter");
-        }
-        else
-        {
-            //we will use a TryRun() from MessageUserControl
-            //This will capture error messages when/if they happen
-            // and properly display in the user control
-            //GetWaiterInfo() is your method for accessing BLL and query
-            MessageUserControl1.TryRun((ProcessRequest)GetWaiterInfo);
-        }
-       
-    }
     public void GetWaiterInfo()
     {
         //a standard look up sequence
@@ -48,6 +32,24 @@ public partial class CommandPages_WaiterAdmin : System.Web.UI.Page
         if (waiter.ReleaseDate.HasValue)
         {
             DateReleased.Text = waiter.ReleaseDate.ToString();
+        }
+    }
+
+
+    protected void FetchWaiter_Click(object sender, EventArgs e)
+    {
+
+        if (WaiterList.SelectedIndex == 0)
+        {
+            MessageUserControl1.ShowInfo("Please select a waiter before clicking fetch Waiter");
+        }
+        else
+        {
+            //we will use a TryRun() from MessageUserControl
+            //This will capture error messages when/if they happen
+            // and properly display in the user control
+            //GetWaiterInfo() is your method for accessing BLL and query
+            MessageUserControl1.TryRun((ProcessRequest)GetWaiterInfo);
         }
     }
 }

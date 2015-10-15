@@ -8,10 +8,11 @@
     <br/>
     <h1>Waiter Admin</h1>
     <asp:Label ID="Label1" runat="server" Text="Select Waiter For Update">Select Waiter For Update</asp:Label>
-    <asp:DropDownList ID="WaiterList" runat="server" AppendDataBoundItems="True">
+    <asp:DropDownList ID="WaiterList" runat="server" AppendDataBoundItems="True" DataSourceID="ODSWaiters" DataTextField="FirstName" DataValueField="WaiterID">
         <asp:ListItem Value="0">Select Waiter </asp:ListItem>
-    </asp:DropDownList>
-    <asp:ObjectDataSource ID="ODSWaiters" runat="server"></asp:ObjectDataSource>
+    </asp:DropDownList>      &nbsp;&nbsp;&nbsp;      <asp:LinkButton ID="FetchWaiter" runat="server" OnClick="FetchWaiter_Click">FetchWaiter</asp:LinkButton>
+
+    <asp:ObjectDataSource ID="ODSWaiters" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="Waiter_List" TypeName="eRestaurantSystem.BLL.AdminController"></asp:ObjectDataSource>
      <table style="width: 80%">
         <tr>
             <td>ID</td>
