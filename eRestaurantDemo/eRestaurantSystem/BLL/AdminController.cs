@@ -164,5 +164,42 @@ namespace eRestaurantSystem.BLL
             }
         }
         #endregion
+        #region Waiter CRUD Insert, Update, Delete
+
+
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public Waiter GetWaiterByID(int waiterID)
+        {
+            using (var context = new eRestaurantContext())
+            {
+                //retrieve the data from the SpecialEvents table on sql
+                //to do so we will use the DbSet in eRestaurantContext
+                //call SpecialEvents (done by mapping)
+
+                //method syntax
+                //return context.SpecialEvents.OrderBy(x => x.Description).ToList();
+                //Query syntax
+                var results = from item in context.Waiters
+                              where item.WaiterID == waiterID
+                              orderby item.FirstName, item.LastName
+                              select item;
+
+                return results.FirstOrDefault();
+            }
+        }
+
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<Waiter> Waiter_List()
+        {
+            using (var context = new eRestaurantContext())
+            {
+                var results = from item in context.Waiters
+                                orderby item.FirstName, item.LastName
+                             select item;
+
+                return results.ToList();
+            }
+        }
+        #endregion
     }//eof class
 }//eof namespace

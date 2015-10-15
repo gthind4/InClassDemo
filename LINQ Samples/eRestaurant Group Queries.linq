@@ -1,9 +1,9 @@
 <Query Kind="Expression">
   <Connection>
-    <ID>fc3922b5-2878-489c-bf3c-5d3707f013f5</ID>
+    <ID>2ecdb854-a1fb-4938-8193-acaa3011a183</ID>
     <Persist>true</Persist>
     <Server>.</Server>
-    <Database>eRestaurant</Database>
+    <Database>WorkSchedule</Database>
   </Connection>
 </Query>
 
@@ -14,3 +14,7 @@ group food by food.MenuCategory.Description
 //requires recreation of an anonymous type
 from food in Items
 group food by new {food.MenuCategory.Description, food.CurrentPrice}
+
+
+		
+	

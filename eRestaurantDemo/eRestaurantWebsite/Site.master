@@ -60,6 +60,7 @@
                         <li><a runat="server" href="~/Contact">Contact</a></li>
                     </ul>
                     <asp:LoginView runat="server" ViewStateMode="Disabled">
+
                         <AnonymousTemplate>
                             <ul class="nav navbar-nav navbar-right">
                                 <li><a runat="server" href="~/Account/Register">Register</a></li>
@@ -75,6 +76,7 @@
                             </ul>
                         </LoggedInTemplate>
                     </asp:LoginView>
+                   
                 </div>
             </div>
         </div>
