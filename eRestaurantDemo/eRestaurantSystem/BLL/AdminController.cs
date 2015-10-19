@@ -166,6 +166,47 @@ namespace eRestaurantSystem.BLL
         #endregion
         #region Waiter CRUD Insert, Update, Delete
 
+        //[DataObjectMethod(DataObjectMethodType.Insert, false)]
+        //public void Waiter_Add(Waiter item)
+        //{
+        //    //input into this method is at the instance level
+        //    using (eRestaurantContext context = new eRestaurantContext())
+        //    {
+        //        //create a pointer variable for the instance type
+        //        //set this pointer to null
+        //        Waiter added = null;
+
+        //        //set up the add request for the dbContext
+        //        added = context.Waiters.Add(item);
+
+        //        //Saving the changes will cause the .Add to execute
+        //        //commits the add to the database
+        //        //evaluates the annotations(validation) on your entity
+        //        context.SaveChanges();
+        //    }
+        //}
+
+        [DataObjectMethod(DataObjectMethodType.Insert, false)]
+        public int Waiter_Add(Waiter item)
+        {
+            //input into this method is at the instance level
+            using (eRestaurantContext context = new eRestaurantContext())
+            {
+                //create a pointer variable for the instance type
+                //set this pointer to null
+                Waiter added = null;
+
+                //set up the add request for the dbContext
+                added = context.Waiters.Add(item);
+
+                //Saving the changes will cause the .Add to execute
+                //commits the add to the database
+                //evaluates the annotations(validation) on your entity
+                context.SaveChanges();
+
+                return added.WaiterID;
+            }
+        }
 
         [DataObjectMethod(DataObjectMethodType.Select, false)]
         public Waiter GetWaiterByID(int waiterID)
@@ -200,6 +241,18 @@ namespace eRestaurantSystem.BLL
                 return results.ToList();
             }
         }
+
+        
+        [DataObjectMethod(DataObjectMethodType.Update,false)]
+        public void Waiter_Update (Waiter item)
+        {
+            using (eRestaurantContext context = new eRestaurantContext())
+            {
+                context.Entry<Waiter>(context.Waiters.Attach(item)).State = System.Data.Entity.EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+        
         #endregion
     }//eof class
 }//eof namespace
