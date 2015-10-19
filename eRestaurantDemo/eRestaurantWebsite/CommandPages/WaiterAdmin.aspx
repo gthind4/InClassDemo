@@ -10,7 +10,12 @@
     <asp:Label ID="Label1" runat="server" Text="Select Waiter For Update">Select Waiter For Update</asp:Label>
     <asp:DropDownList ID="WaiterList" runat="server" AppendDataBoundItems="True" DataSourceID="ODSWaiters" DataTextField="FirstName" DataValueField="WaiterID">
         <asp:ListItem Value="0">Select Waiter </asp:ListItem>
+<<<<<<< HEAD
     </asp:DropDownList>&nbsp; <asp:LinkButton ID="FetchWaiter" runat="server" OnClick="FetchWaiter_Click1">Fetch Waiters</asp:LinkButton>
+=======
+    </asp:DropDownList>      &nbsp;&nbsp;&nbsp;      <asp:LinkButton ID="FetchWaiter" runat="server" OnClick="FetchWaiter_Click">FetchWaiter</asp:LinkButton>
+
+>>>>>>> origin/master
     <asp:ObjectDataSource ID="ODSWaiters" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="Waiter_List" TypeName="eRestaurantSystem.BLL.AdminController"></asp:ObjectDataSource>
      <table style="width: 80%">
         <tr>
