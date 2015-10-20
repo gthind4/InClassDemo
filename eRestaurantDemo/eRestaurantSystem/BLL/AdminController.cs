@@ -38,6 +38,27 @@ namespace eRestaurantSystem.BLL
         }
 
         [DataObjectMethod(DataObjectMethodType.Select, false)]
+        public List<eRestaurantSystem.Entities.POCOs.CategoryMenuItems> GetReportCategoryMenuItems()
+        {
+            using (eRestaurantContext context = new eRestaurantContext())
+            {
+                var results = from cat in context.Items
+                              orderby cat.Category.Description, cat.Description
+                              select new eRestaurantSystem.Entities.POCOs.CategoryMenuItems
+                              {
+                                  CategoryDescription = cat.Category.Description,
+                                  ItemDescription = cat.Description,
+                                  Price = cat.CurrentPrice,
+                                  Calories = cat.Calories,
+                                  Comment = cat.Comment
+                              };
+
+                return results.ToList(); // this was .Dump() in Linqpad
+            }
+        }
+
+
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
         public List<Reservation> GetReservationsByEventCode(string eventcode)
         {
             using (var context = new eRestaurantContext())
@@ -91,7 +112,7 @@ namespace eRestaurantSystem.BLL
 
         }
         [DataObjectMethod(DataObjectMethodType.Select, false)]
-        public List<CategoryMenuItems> GetCategoryMenuItems_List()
+        public List<eRestaurantSystem.Entities.DTOs.CategoryMenuItems> GetCategoryMenuItems_List()
         {
             using (var context = new eRestaurantContext())
             {
@@ -101,7 +122,7 @@ namespace eRestaurantSystem.BLL
                 //Query syntax
                 var results = from category in context.MenuCategories
                               orderby category.Description
-                              select new CategoryMenuItems() //DTO
+                              select new eRestaurantSystem.Entities.DTOs.CategoryMenuItems() //DTO
                               {
                                   Description = category.Description,
                                   MenuItems = from row in category.MenuItems 

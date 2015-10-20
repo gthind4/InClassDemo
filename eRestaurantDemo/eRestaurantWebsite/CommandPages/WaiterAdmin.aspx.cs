@@ -17,9 +17,21 @@ public partial class CommandPages_WaiterAdmin : System.Web.UI.Page
     {
         //Initialize the hire date to today
         DateHired.Text = DateTime.Today.ToShortDateString();
+        if (!Page.IsPostBack)
+        {
+            RefreshwaiterList("0");
+            DateHired.Text = DateTime.Today.ToShortDateString();
+        }
     }
 
-<<<<<<< HEAD
+    protected void  RefreshwaiterList(String selectedValue)
+    {
+        // force a requery of the dropdown list
+        WaiterList.DataBind();
+        WaiterList.Items.Insert(0,"Select a Waiter");
+        //position on a waiter in the list
+        WaiterList.SelectedValue = selectedValue;
+    }
    
     protected void InsertWaiter_Click(object sender, EventArgs e)
     {
@@ -36,6 +48,7 @@ public partial class CommandPages_WaiterAdmin : System.Web.UI.Page
                 AdminController sysmgr = new AdminController();
                 WaiterID.Text = sysmgr.Waiter_Add(item).ToString();
                 MessageUserControl1.ShowInfo("Waiter Added");
+                RefreshwaiterList(WaiterID.Text);
             }
         );
     }
@@ -68,6 +81,7 @@ public partial class CommandPages_WaiterAdmin : System.Web.UI.Page
                 AdminController sysmgr = new AdminController();
                 sysmgr.Waiter_Update(item);
                 MessageUserControl1.ShowInfo("Waiter Updated");
+                RefreshwaiterList(WaiterID.Text);
             }
         );
         }
@@ -91,8 +105,7 @@ public partial class CommandPages_WaiterAdmin : System.Web.UI.Page
         }
        
     }
-=======
->>>>>>> origin/master
+
     public void GetWaiterInfo()
     {
         //a standard look up sequence
@@ -109,9 +122,7 @@ public partial class CommandPages_WaiterAdmin : System.Web.UI.Page
             DateReleased.Text = waiter.ReleaseDate.ToString();
         }
     }
-<<<<<<< HEAD
-    
-=======
+
 
 
     protected void FetchWaiter_Click(object sender, EventArgs e)
@@ -130,5 +141,5 @@ public partial class CommandPages_WaiterAdmin : System.Web.UI.Page
             MessageUserControl1.TryRun((ProcessRequest)GetWaiterInfo);
         }
     }
->>>>>>> origin/master
+
 }
