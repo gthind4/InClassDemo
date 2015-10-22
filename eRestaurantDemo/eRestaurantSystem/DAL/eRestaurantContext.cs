@@ -31,6 +31,7 @@ namespace eRestaurantSystem.DAL
         public DbSet<MenuCategory> MenuCategories { get; set; }
         public DbSet<Waiter> Waiters { get; set; }
         public DbSet<Item> Items { get; set; }
+        public DbSet<Bill> Bills { get; set; }
 
         //when overriding on ModelCreating(), it is important to remember to call the base method's implementration before you exit the method
 
