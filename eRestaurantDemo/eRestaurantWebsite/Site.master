@@ -59,6 +59,7 @@
                         <li><a runat="server" href="~/CommandPages/WaiterAdmin.aspx">WaiterAdmin</a></li>
                         <li><a runat="server" href="~/Reports/MenuCategoryItemReport.aspx">Menu Category Report</a></li>
                         <li><a runat="server" href="~/Reports/WaiterBillingReport.aspx">Waiter Billing Report</a></li>
+                        <li><a runat="server" href="~/UXPages/FrontDesk.aspx">Front Desk</a></li>
                         <li><a runat="server" href="~/About">About</a></li>
                         <li><a runat="server" href="~/Contact">Contact</a></li>
                     </ul>
