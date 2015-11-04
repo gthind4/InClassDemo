@@ -33,5 +33,48 @@
         </details>
     </div>
 
+    <!--this is the presentation mark up code for the reservation display -->
+    <div class="pull-right col-md-5">
+        <!--details is a bootstrap collapsable area -->
+        <details open>
+            <!--the text displayed beside the details icon -->
+            <summary>Reservations by Date/Time</summary>
+            <h4>Today's Reservations</h4>
+            <!--ItemType = parameters must be redirected to your current application locations. -->
+            <asp:Repeater ID="ReservationsRepeater" runat="server"
+                ItemType="eRestaurantSystem.Entities.DTOs.ReservationCollection" DataSourceID="ReservationsDataSource">
+                <ItemTemplate>
+                    <div>
+                        <h4><%# Item.SeatingTime %></h4>
+                        <asp:ListView ID="ReservationSummaryListView" runat="server"
+                                ItemType="eRestaurantSystem.Entities.POCOs.ReservationSummary"
+                                DataSource="<%# Item.Reservations %>">
+                            <LayoutTemplate>
+                                <div class="seating">
+                                    <span runat="server" id="itemPlaceholder" />
+                                </div>
+                            </LayoutTemplate>
+                            <ItemTemplate>
+                                <div>
+                                    <%# Item.Name %> —
+                                    <%# Item.NumberInParty %> —
+                                    <%# Item.Status %> —
+                                    PH:
+                                    <%# Item.Contact %>
+                                </div>
+                            </ItemTemplate>
+                        </asp:ListView>
+                    </div>
+                </ItemTemplate>
+            </asp:Repeater>
+            <!--Type Name = parameters must be redirected to your current application locations. -->
+            <asp:ObjectDataSource runat="server" ID="ReservationsDataSource" OldValuesParameterFormatString="original_{0}" SelectMethod="ReservationsByTime" 
+                TypeName="eRestaurantSystem.BLL.AdminController">
+                <SelectParameters>
+                    <asp:ControlParameter ControlID="SearchDate" PropertyName="Text" Name="date" Type="DateTime"></asp:ControlParameter>
+                </SelectParameters>
+            </asp:ObjectDataSource>
+        </details>
+    </div>
 </asp:Content>
 
