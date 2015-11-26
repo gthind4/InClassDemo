@@ -86,13 +86,13 @@
             <h4>Today's Reservations</h4>
             <!--ItemType = parameters must be redirected to your current application locations. -->
             <asp:Repeater ID="ReservationsRepeater" runat="server"
-                ItemType="eRestaurantSystem.Entities.DTOs.ReservationCollection" DataSourceID="ReservationsDataSource">
+                ItemType="eRestaurantSystem.Entities.DTOs.ReservationCollection" DataSourceID="ReservationsDataSource" >
                 <ItemTemplate>
                     <div>
                         <h4><%# Item.SeatingTime %></h4>
                         <asp:ListView ID="ReservationSummaryListView" runat="server"
                                 ItemType="eRestaurantSystem.Entities.POCOs.ReservationSummary"
-                                DataSource="<%# Item.Reservations %>">
+                                DataSource="<%# Item.Reservations %>" OnItemCommand="ReservationSummaryListView_ItemCommand">
                             <LayoutTemplate>
                                 <div class="seating">
                                     <span runat="server" id="itemPlaceholder" />
@@ -104,13 +104,44 @@
                                     <%# Item.NumberInParty %> —
                                     <%# Item.Status %> —
                                     PH:
-                                    <%# Item.Contact %>
+                                    <%# Item.Contact %> -
+                                    <asp:LinkButton ID="InsertButton" runat="server"
+                                        CommandName ="Seat"
+                                        CommandArgument ='<%# Item.ID %>'>
+                                        Reservation Seating
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                    </asp:LinkButton>
                                 </div>
                             </ItemTemplate>
                         </asp:ListView>
                     </div>
                 </ItemTemplate>
             </asp:Repeater>
+
+            <asp:Panel ID="ReservationSeatingPanel" runat="server" Visible='<%# ShowReservationSeating() %>'>
+                <asp:DropDownList ID="WaiterDropDownList" runat="server" CssClass="seating"
+                    AppendDataBoundItems="true" DataSourceID="WaitersDataSource"
+                    DataTextField="FullName" DataValueField="WaiterId">
+                    <asp:listitem value="0">[select a waiter]</asp:listitem>
+                </asp:DropDownList>
+                <asp:ListBox ID="ReservationTableListBox" runat="server" CssClass="seating"                             
+                    DataSourceID="AvailableSeatingObjectDataSource" SelectionMode="Multiple" Rows="14"
+                    DataTextField="Table" DataValueField="Table">
+                </asp:ListBox>
+            </asp:Panel>
+
+             <%--For the Waiter DropDown--%>
+                    <asp:ObjectDataSource runat="server" ID="ObjectDataSource1" OldValuesParameterFormatString="original_{0}" SelectMethod="ListAllWaiters" TypeName="eRestaurant.BLL.RestaurantAdminController"></asp:ObjectDataSource>
+    
+                        <%--For the Available Tables DropDown (seating reservation)--%>
+                    <asp:ObjectDataSource runat="server" ID="AvailableSeatingObjectDataSource" OldValuesParameterFormatString="original_{0}" SelectMethod="AvailableSeatingByDateTime" TypeName="eRestaurant.BLL.SeatingController">
+                    <selectparameters>
+                        <asp:controlparameter ControlID="Mocker" PropertyName="MockDate" name="date" type="DateTime"></asp:controlparameter>
+                        <asp:controlparameter ControlID="Mocker" PropertyName="MockTime" dbtype="Time" name="time"></asp:controlparameter>
+                    </selectparameters>
+                        </asp:ObjectDataSource>
+
+
             <!--Type Name = parameters must be redirected to your current application locations. -->
             <asp:ObjectDataSource runat="server" ID="ReservationsDataSource" OldValuesParameterFormatString="original_{0}" SelectMethod="ReservationsByTime" 
                 TypeName="eRestaurantSystem.BLL.AdminController">
